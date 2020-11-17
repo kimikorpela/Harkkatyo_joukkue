@@ -22,9 +22,9 @@
 			<td th:text="${pelaaja.nimi}"></td>
 			<td th:text="${pelaaja.pelinumero}"></td>
 			<td th:text="${pelaaja.pelipaikka.name}"></td>
-			<td sec:authorize="hasRole('ADMIN')"><a
+			<td sec:authorize="hasAuthority('ADMIN')"><a
 				th:href="@{/delete/{id}(id=${pelaaja.id})}"
-				class="btn btn-warning">Poista</a></td>
+				class="btn btn-danger">Poista</a></td>
 			<td><a th:href="@{/modify/{id}(id=${pelaaja.id})}"
 				class="btn btn-warning">Muokkaa</a></td>
 		</tr>
