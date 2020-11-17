@@ -19,31 +19,45 @@ import harkka.model.UserRepo;
 
 @Controller
 public class UserController {
-	@Autowired
-	private UserRepo repository;
-	
-	// Kirjautuminen
-	@RequestMapping("/")
-	public String login() {
-		return "login";
-	}
-	@GetMapping("/")
-	public String showHome(User user) {
-		return "signup";
-	}
-	
-	@GetMapping("/signup")
-	public String showRegistrationForm(Model model) {
-		User user = new User();
-		model.addAttribute("user", user);
-		return "signup";
-	}
-	
-	@PostMapping("/saveuser")
-	public String saveUser(@ModelAttribute User user, Model model) {
-		repository.save(user);
-		model.addAttribute("users", repository.findAll());
-		return "login";
-	}
-	
+    @Autowired
+    private UserRepo repository; 
+
+    @RequestMapping(value = "signup")
+    public String addSignup(Model model){
+        model.addAttribute("signupform", new SignupForm());
+        return "signup";
+    }
+
+ 
+    @RequestMapping(value = "saveuser", method = RequestMethod.POST)
+    public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) { // validation errors
+            if (signupForm.getPassword().equals(signupForm.getPasswordCheck())) { // check password match
+                String pwd = signupForm.getPassword();
+                BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+                String hashPwd = bc.encode(pwd);
+
+                User newUser = new User();
+                newUser.setPasswordHash(hashPwd);
+                newUser.setUsername(signupForm.getUsername());
+                newUser.setRole(signupForm.getRole());
+                if (repository.findByUsername(signupForm.getUsername()) == null) { // Check if user exists
+                    repository.save(newUser);
+                }
+                else {
+                    bindingResult.rejectValue("username", "err.username", "Username already exists");
+                    return "signup";
+                }
+            }
+            else {
+                bindingResult.rejectValue("passwordCheck", "err.passCheck", "Passwords does not match");
+                return "signup";
+            }
+        }
+        else {
+            return "signup";
+        }
+        return "redirect:/login";
+    }
+
 }
