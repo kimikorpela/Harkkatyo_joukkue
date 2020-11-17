@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Pelaajat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<h1>Pelaajat</h1>
+	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+	<table class="table table-striped">
+		<tr>
+			<th>Nimi</th>
+			<th>Pelinumero</th>
+			<th>Pelipaikka</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr th:each="pelaaja : ${pelaajat}">
+			<td th:text="${pelaaja.nimi}"></td>
+			<td th:text="${pelaaja.pelinumero}"></td>
+			<td th:text="${pelaaja.pelipaikka.name}"></td>
+			<td sec:authorize="hasRole('ADMIN')"><a
+				th:href="@{/delete/{id}(id=${pelaaja.id})}"
+				class="btn btn-warning">Poista</a></td>
+			<td><a th:href="@{/modify/{id}(id=${pelaaja.id})}"
+				class="btn btn-warning">Muokkaa</a></td>
+		</tr>
+	</table>
+	<a href="/lisaapelaaja" class="btn btn-success">Lisää Pelaaja</a>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+
+</body>
+</html>

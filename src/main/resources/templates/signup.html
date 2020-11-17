@@ -1,0 +1,41 @@
+
+<!--  https://dev.to/reytech-lesson/create-employee-registration-form-and-submit-the-form-using-spring-boot-and-thymeleaf-3n2p-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Luo uusi käyttäjä</title>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container my-3">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h2>Rekisteröinti</h2>
+            <form th:action="@{/saveuser}" th:object="${user}" method="post">
+                <div class="form-row">
+                    <div class="col-md-6 form-group">
+                        <label>Käyttäjänimi:</label>
+                        <input type="text" class="form-control" th:field="*{username}">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Rooli</label>
+                        <select class="form-control" th:field="*{role}">
+                            <option value="">Valitse:</option>
+                            <option value="user">user</option>
+                            <option value="admin">admin</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Salasana</label>
+                        <input type="text" class="form-control" th:field="*{passwordHash}">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-3" value="saveuser">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

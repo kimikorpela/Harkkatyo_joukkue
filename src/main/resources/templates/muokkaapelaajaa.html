@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pelaajat</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<h1>Muokkaa pelaajaa</h1>
+	<div>
+		<form th:object="${pelaaja}" th:action="@{../save}" action="#" method="post">
+			<label for="id"></label>
+			<input type="hidden" id="id" th:field="*{id}" readonly="readonly" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+		  	<label for="nimi">Nimi</label>
+			<input type="text" id="nimi" th:field="*{nimi}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+		  	<label for="pelinumero">Pelinumero</label>
+			<input type="text" th:field="*{pelinumero}" />	
+			<div style="clear: both; display: block; height: 10px;"></div>
+
+					
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="pelipaikka">Pelipaikka</label>
+			<select id="pelipaikkalist" th:field="*{pelipaikka}" class="form-control">
+            <option th:each="pelipaikka: ${pelipaikat}" 
+                    th:value="${pelipaikka.pelipaikkaId}" 
+                    th:text="${pelipaikka.name}"></option>
+            </select><br>
+			<input class="btn btn-success" type="submit" value="Save"></input>
+		</form>
+		
+	</div>
+</body>
+</html>
