@@ -41,7 +41,7 @@ public class PelaajaController {
 	public String editPelaaja(@PathVariable("id") Long pelaajaId, Model model) {
 		model.addAttribute("pelaaja", repository.findById(pelaajaId));
 		model.addAttribute("pelipaikat", prepository.findAll());
-		return "muokkkaapelaajaa";
+		return "muokkaapelaajaa";
 	}
 
 	@RequestMapping(value = "/pelaajalista/{id}", method = RequestMethod.GET)
