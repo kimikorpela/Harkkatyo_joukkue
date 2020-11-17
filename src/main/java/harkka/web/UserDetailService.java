@@ -11,7 +11,7 @@ import harkka.model.User;
 import harkka.model.UserRepo;
 
 @Service
-public class UserDetailService implements UserDetailsService  {
+public class UserDetailService implements UserDetailsService {
 	private final UserRepo repository;
 
 	@Autowired
@@ -19,11 +19,11 @@ public class UserDetailService implements UserDetailsService  {
 		this.repository = userRepository;
 	}
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {   
-    	User curruser = repository.findByUsername(username);
-        UserDetails user = new org.springframework.security.core.userdetails.User(username, curruser.getPasswordHash(), 
-        		AuthorityUtils.createAuthorityList(curruser.getRole()));
-        return user;
-    }   
-} 
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User curruser = repository.findByUsername(username);
+		UserDetails user = new org.springframework.security.core.userdetails.User(username, curruser.getPasswordHash(),
+				AuthorityUtils.createAuthorityList(curruser.getRole()));
+		return user;
+	}
+}

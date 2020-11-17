@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<title>Pelaajat</title>
+<title>Jääkiekkojoukkue</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
 	th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-	<h1>Pelaajat</h1>
+	<h1>Jääkiekkojoukkue</h1>
 	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 	<table class="table table-striped">
 		<tr>
@@ -29,7 +29,7 @@
 				class="btn btn-warning">Muokkaa</a></td>
 		</tr>
 	</table>
-	<a href="/lisaapelaaja" class="btn btn-success">Lisää Pelaaja</a>
+	<a href="/lisaapelaaja" class="btn btn-success">Lisää Pelaaja</a><br>
 	<form th:action="@{/logout}" method="post">
 		<a href="/login" class="btn btn-warning">Kirjaudu ulos</a>
 	</form>

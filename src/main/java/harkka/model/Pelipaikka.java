@@ -1,6 +1,5 @@
 package harkka.model;
 
-
 import java.util.List;
 
 import javax.persistence.CascadeType;
