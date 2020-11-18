@@ -22,7 +22,7 @@ public class PelaajaRepoTest {
 	private PelaajaRepo pRepo;
 
 	@Test(expected = NullPointerException.class)
-	public void findByLastnameShouldReturnStudent() {
+	public void findByNimiPitaisiPalauttaaPelaaja() {
 		List<Pelaaja> pelaajat = pRepo.findByNimi("Pekka Pakki");
 		assertThat(pelaajat).hasSize(1);
 		assertThat(pelaajat.get(0).getNimi()).isEqualTo("Pekka Pakki");

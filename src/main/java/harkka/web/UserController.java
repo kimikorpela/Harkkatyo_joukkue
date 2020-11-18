@@ -5,9 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -30,8 +28,8 @@ public class UserController {
 
 	@RequestMapping(value = "saveuser", method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
-		if (!bindingResult.hasErrors()) { // validation errors
-			if (signupForm.getPassword().equals(signupForm.getPasswordCheck())) { // check password match
+		if (!bindingResult.hasErrors()) { // Validaatio errorit
+			if (signupForm.getPassword().equals(signupForm.getPasswordCheck())) { // Tarkistaa salasanojen täsmäävyyden
 				String pwd = signupForm.getPassword();
 				BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
 				String hashPwd = bc.encode(pwd);
@@ -40,7 +38,7 @@ public class UserController {
 				newUser.setPasswordHash(hashPwd);
 				newUser.setUsername(signupForm.getUsername());
 				newUser.setRole(signupForm.getRole());
-				if (repository.findByUsername(signupForm.getUsername()) == null) { // Check if user exists
+				if (repository.findByUsername(signupForm.getUsername()) == null) { // Tarkistaa onko käyttäjä jo olemassa
 					repository.save(newUser);
 				} else {
 					bindingResult.rejectValue("username", "err.username", "Username already exists");
