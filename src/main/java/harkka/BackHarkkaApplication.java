@@ -30,11 +30,13 @@ public class BackHarkkaApplication {
 
 			log.info("save a couple players");
 			// Luodaan kolme roolivaihtoehtoa
+			pprepository.deleteAll();
 			pprepository.save(new Pelipaikka("Hyökkääjä"));
 			pprepository.save(new Pelipaikka("Puolustaja"));
 			pprepository.save(new Pelipaikka("Maalivahti"));
 			
 			// Luodaan kolme esimerkkipelaajaa
+			prepository.deleteAll();
 			prepository.save(new Pelaaja("Harri Hyökkääjä", 99, pprepository.findByName("Hyökkääjä").get(0)));
 			prepository.save(new Pelaaja("Pekka Pakki", 4, pprepository.findByName("Puolustaja").get(0)));
 			prepository.save(new Pelaaja("Matti Molari", 35, pprepository.findByName("Maalivahti").get(0)));
